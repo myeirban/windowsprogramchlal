@@ -3,14 +3,15 @@
     partial class PayForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// zaabal baih yostoi dizainer bureldehuun.
+        /// Formiin controluudiin buh medeelliig aguuldag.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Ashiglagdapj bui nootsiig tseverlene.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true bol manager resource uudiig ustgana.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

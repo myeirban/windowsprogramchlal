@@ -1,16 +1,18 @@
 ﻿namespace WinFormsApp
-{
+{/// <summary>
+/// Edit form ni baraanii medeelliig zasah hereglegchiin interfeisiig todorhoildog.
+/// </summary>
     partial class EditForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// Dizainer bureldehuunuud hadgalagdah container
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Ashiglagdaj bui nootsiig tseverlene.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true bol managed nootsuudiig ustgana.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,8 +25,8 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// formiin UI initsializ hiideg method
+        /// controlluudiin bairlal,hemjee,uildel zergiig tohiruulna.
         /// </summary>
         private void InitializeComponent()
         {
@@ -87,7 +89,6 @@
             txtEditCode.Name = "txtEditCode";
             txtEditCode.Size = new Size(151, 27);
             txtEditCode.TabIndex = 4;
-            txtEditCode.TextChanged += textBox1_TextChanged;
             // 
             // txtEditName
             // 
@@ -132,7 +133,7 @@
             btnSaveEdit.TabIndex = 9;
             btnSaveEdit.Text = "SAVE";
             btnSaveEdit.UseVisualStyleBackColor = true;
-            btnSaveEdit.Click += btnSaveEdit_Click_1;
+            btnSaveEdit.Click += btnSaveEdit_Click;
             // 
             // btnCancelEdit
             // 
@@ -142,7 +143,7 @@
             btnCancelEdit.TabIndex = 10;
             btnCancelEdit.Text = "CANCEL";
             btnCancelEdit.UseVisualStyleBackColor = true;
-            btnCancelEdit.Click += btnCancelEdit_Click_1;
+            btnCancelEdit.Click += btnCancelEdit_Click;
             // 
             // openFileDialog1
             // 
@@ -159,7 +160,6 @@
             picEditImage.Size = new Size(164, 171);
             picEditImage.TabIndex = 11;
             picEditImage.TabStop = false;
-            picEditImage.Click += picEditImage_Click;
             // 
             // EditForm
             // 

@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SQLite;
-using System.IO;
-using Microsoft.Data.Sqlite;
+﻿using System.Data;
 using ClassLibrary;
 using ClassLibrary.Models;
-using System.Drawing.Printing;
 
 namespace WinFormsApp
 {
+    /// <summary>
+    /// anh nevterch oroh yed haragdah delgets
+    /// Kasschin baraa songoh ,sags uusgeh, tolbor hiih ,angilal udirdah zerg uildluudiig hiideg.
+    /// </summary>
     public partial class MainPosForm : Form
     {
-        private POSSystem posSystem;
-        private User currentUser;
-        private List<SaleItem> currentSaleItems = new List<SaleItem>();
+        private POSSystem posSystem;//sistemiin logic data
+        private User currentUser;//nevtersen hereglegchiin medeelel
+        private Cart cart;//hereglegchiin sags
+        private ClassLibrary.Service.PrintingService printingService;
+
+
         private ErrorProvider errorProvider = new ErrorProvider();
 
+        /// <summary>
+        /// Hereglegchiin medeelel bolon UI-g achaalj beldene.
+        /// </summary>
+        /// <param name="posSystem">pos systemin undsen logic</param>
+        /// <param name="user">nevtersen herglegchiin medeeel</param>
         public MainPosForm(POSSystem posSystem, User user)
         {
             if (user == null)
@@ -34,21 +34,25 @@ namespace WinFormsApp
             InitializeComponent();
             this.posSystem = posSystem;
             this.currentUser = user;
+            this.printingService = posSystem.PrintingService;
             lblUsername.Text = $"Кассчин: {user.Username}";
 
             LoadProducts();
             LoadCategories();
             SetupCartListView();
 
+            // Initialize the cart
+            cart = new Cart();
+
             // Event handler binding
             btnAddToCart.Click += btnAddToCart_Click;
-            btnPay.Click += btnPay_Click;
-            btnBaraa.Click += btnBaraa_Click;
-            btnAngilal.Click += btnAngilal_Click;
+            
+            //btnBaraa.Click += btnBaraa_Click_1;
+            
             btnHelp.Click += btnHelp_Click;
             btnLogout.Click += btnLogout_Click;
             btnClose.Click += btnClose_Click;
-            
+
         }
 
 
@@ -65,30 +69,35 @@ namespace WinFormsApp
             lstCart.Columns.Add("Нийт", 80);
         }
 
+        /// <summary>
+        /// POS delgets deerh baraanuudiin jagsaaltiig tovch helvereer haruulna.
+        /// </summary>
         private void LoadProducts()
         {
             lstProducts.Controls.Clear();
-            var products = posSystem.GetProducts();
+            var products = posSystem.ProductRepository.GetProducts();
             int y = 0;
             foreach (var product in products)
             {
                 var button = new Button
                 {
-                    Text = $"{product.Name}\n{product.Price:C}",
+                    Text = $"{product.Name}\n{product.Price:C}\n{product.Barcode}",
                     Location = new Point(10, y),
-                    Size = new Size(200, 50),
+                    Size = new Size(200, 70),
                     Tag = product
                 };
                 button.Click += ProductButton_Click;
                 lstProducts.Controls.Add(button);
-                y += 60;
+                y += 80;
             }
         }
-
+        /// <summary>
+        /// POS delgets deer buh angilaliig tovch helbereer haruulna.
+        /// </summary>
         private void LoadCategories()
         {
             lstCategories.Controls.Clear();
-            var categories = posSystem.GetCategories();
+            var categories = posSystem.CategoryRepository.GetCategories();
             int y = 0;
             foreach (var category in categories)
             {
@@ -107,7 +116,7 @@ namespace WinFormsApp
 
         private void ProductButton_Click(object? sender, EventArgs e)
         {
-            if (sender is Button button && button.Tag is Product product)
+            if (sender is Button { Tag: Product product})
             {
                 AddToCart(product);
             }
@@ -115,25 +124,29 @@ namespace WinFormsApp
 
         private void CategoryButton_Click(object? sender, EventArgs e)
         {
-            if (sender is Button button && button.Tag is Category category)
+            if (sender is Button{ Tag : Category category})
             {
                 FilterProductsByCategory(category.Id);
             }
         }
 
+        /// <summary>
+        /// Songoson angilaliin daguu baraanuudiig shuun haruulna
+        /// </summary>
+        /// <param name="categoryId">ANgilaliin ID</param>
         private void FilterProductsByCategory(int categoryId)
         {
             lstProducts.Controls.Clear();
-            var products = posSystem.GetProducts().Where(p => p.CategoryId == categoryId);
+            var products = posSystem.ProductRepository.GetProducts().Where(p => p.CategoryId == categoryId);
             int y = 0;
-            foreach (var product in products)
+            foreach (var p in products)
             {
                 var button = new Button
                 {
-                    Text = $"{product.Name}\n{product.Price:C}",
+                    Text = $"{p.Name}\n{p.Price:C}",
                     Location = new Point(10, y),
                     Size = new Size(200, 50),
-                    Tag = product
+                    Tag = p
                 };
                 button.Click += ProductButton_Click;
                 lstProducts.Controls.Add(button);
@@ -141,28 +154,27 @@ namespace WinFormsApp
             }
         }
 
-        private void AddToCart(Product? product)
+        /// <summary>
+        /// baraag sagsand nemne
+        /// </summary>
+        /// <param name="product">Nemeh gej bui baraanii obiekt</param>
+        public void AddToCart(Product? product)
         {
             if (product == null) return;
-            var existingItem = currentSaleItems.FirstOrDefault(item => item.Product.Id == product.Id);
-            if (existingItem != null)
-            {
-                existingItem.Quantity++;
-            }
-            else
-            {
-                currentSaleItems.Add(new SaleItem { Product = product, Quantity = 1 });
-            }
+            cart.AddItem(product);
             UpdateCartDisplay();
         }
 
+        /// <summary>
+        /// Sagsnii medeelliig delgets deer shinecilj haruulna.
+        /// </summary>
         private void UpdateCartDisplay()
         {
             lstCart.Items.Clear();
             decimal total = 0;
             int totalCount = 0;
             ListViewItem lastItem = null;
-            foreach (var item in currentSaleItems)
+            foreach (var item in cart.Items)
             {
                 var listViewItem = new ListViewItem(new[]
                 {
@@ -188,25 +200,30 @@ namespace WinFormsApp
 
         private void MainPosForm_Load(object sender, EventArgs e)
         {
-            // Form load event handler
+            LoadProducts();
         }
-
+        /// <summary>
+        /// hereglegch sistemees garahdaa batalgaajuulalt hiine.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLogout_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Та системээс гарахдаа итгэлтэй байна уу?", "Гарах",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                // Login формыг нээх
-                LoginForm loginForm = new LoginForm();
-                loginForm.Show();
-
-                // Одоогийн формыг хаах
-                this.Close();
+                this.Close(); //  Зөв! Шууд формоо хаагаад л LoginForm гарч ирнэ
             }
         }
 
 
+
+        /// <summary>
+        /// hereglegch sistemees garah huseltei baival x tovch deer darj programmiig bur mson haah uildel yum
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("Та програмаас гарахдаа итгэлтэй байна уу?", "Гарах",
@@ -217,101 +234,82 @@ namespace WinFormsApp
             }
         }
 
+        /// <summary>
+        /// Barkodiin daguu baraa haij,oldvol sagsand nemne.
+        /// Mon UI deer tuhai baraag tovch helbereer haruulna.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddToCart_Click(object? sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBarcode.Text))
+            if (string.IsNullOrWhiteSpace(txtBarcode.Text))
             {
                 MessageBox.Show("Барааны бар код оруулна уу!", "Анхаар",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var product = posSystem.GetProducts().FirstOrDefault(p => p.Barcode == txtBarcode.Text);
+
+            var product = posSystem.ProductRepository.GetProducts()
+                .FirstOrDefault(p => p.Barcode == txtBarcode.Text);
+
             if (product == null)
             {
-                MessageBox.Show("Бараа олдсонгүй!", "Алдаа",
+                MessageBox.Show("Baraa duussan hudaldah bolomjgui!", "Алдаа",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            AddToCart(product);
+
+            //  Шинэ Button үүсгээд "Бүтээгдэхүүний жагсаалт" руу нэмэх
+            var productButton = new Button
+            {
+                Text = $"{product.Name}\n{product.Price:C}\n{product.Barcode}",
+                Size = new Size(200, 70),
+                Tag = product,
+                BackColor = Color.LightGreen
+            };
+
+            // товчийг дарахад сагсанд нэмэх
+            productButton.Click += (s, ev) => AddToCart(product);
+
+            // Бүтээгдэхүүн хэд дэх нь болохыг тооцож байрлуулах
+            int y = lstProducts.Controls.Count * 80;
+            productButton.Location = new Point(10, y);
+
+            lstProducts.Controls.Add(productButton);
             txtBarcode.Clear();
         }
 
-        private void PrintReceipt(List<SaleItem> items, string cashierName, decimal totalAmount, string paymentMethod)
-        {
-            PrintDocument pd = new PrintDocument();
-            pd.PrintPage += (sender, e) =>
-            {
-                Graphics graphics = e.Graphics;
-                Font titleFont = new Font("Arial", 14, FontStyle.Bold);
-                Font normalFont = new Font("Arial", 10);
-                Font boldFont = new Font("Arial", 10, FontStyle.Bold);
-                float yPos = 50;
-                float leftMargin = e.MarginBounds.Left;
-                float topMargin = e.MarginBounds.Top;
-
-                // Print header
-                graphics.DrawString("ХУДАЛДААНЫ БАРИМТ", titleFont, Brushes.Black, leftMargin, yPos);
-                yPos += 30;
-                graphics.DrawString($"Огноо: {DateTime.Now:yyyy-MM-dd HH:mm:ss}", normalFont, Brushes.Black, leftMargin, yPos);
-                yPos += 20;
-                graphics.DrawString($"Кассчин: {cashierName}", normalFont, Brushes.Black, leftMargin, yPos);
-                yPos += 30;
-
-                // Print items
-                graphics.DrawString("Бараа", boldFont, Brushes.Black, leftMargin, yPos);
-                graphics.DrawString("Тоо", boldFont, Brushes.Black, leftMargin + 150, yPos);
-                graphics.DrawString("Үнэ", boldFont, Brushes.Black, leftMargin + 200, yPos);
-                graphics.DrawString("Нийт", boldFont, Brushes.Black, leftMargin + 300, yPos);
-                yPos += 20;
-
-                foreach (var item in items)
-                {
-                    graphics.DrawString(item.Product.Name, normalFont, Brushes.Black, leftMargin, yPos);
-                    graphics.DrawString(item.Quantity.ToString(), normalFont, Brushes.Black, leftMargin + 150, yPos);
-                    graphics.DrawString(item.Product.Price.ToString("C"), normalFont, Brushes.Black, leftMargin + 200, yPos);
-                    graphics.DrawString(item.Total.ToString("C"), normalFont, Brushes.Black, leftMargin + 300, yPos);
-                    yPos += 20;
-                }
-
-                // Print total
-                yPos += 20;
-                graphics.DrawString("Нийт дүн:", boldFont, Brushes.Black, leftMargin + 200, yPos);
-                graphics.DrawString(totalAmount.ToString("C"), boldFont, Brushes.Black, leftMargin + 300, yPos);
-                yPos += 20;
-                graphics.DrawString($"Төлбөрийн хэлбэр: {paymentMethod}", normalFont, Brushes.Black, leftMargin, yPos);
-                yPos += 30;
-                graphics.DrawString("Баярлалаа!", titleFont, Brushes.Black, leftMargin, yPos);
-            };
-
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.Document = pd;
-            if (printDialog.ShowDialog() == DialogResult.OK)
-            {
-                pd.Print();
-            }
-        }
-
+        /// <summary>
+        /// tolboriin tsonh neej,tolbor hiisnii daraa sagsiig tseberlene.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPay_Click(object? sender, EventArgs e)
         {
-            if (currentSaleItems.Count == 0)
+            if (cart.Items.Count == 0)
             {
                 MessageBox.Show("Сагсанд бараа байхгүй байна!", "Анхаар",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var payForm = new PayForm(posSystem, new List<SaleItem>(currentSaleItems), currentUser.Username);
+
+            System.Diagnostics.Debug.WriteLine($"Cart item count before opening PayForm: {cart.Items.Count}");
+            var payForm = new PayForm(posSystem, cart.Items.ToList(), currentUser.Username, posSystem.PrintingService);
+
             if (payForm.ShowDialog() == DialogResult.OK)
             {
-                decimal totalAmount = currentSaleItems.Sum(item => item.Total);
-                PrintReceipt(currentSaleItems, currentUser.Username, totalAmount, payForm.PaymentMethod);
-                currentSaleItems.Clear();
+                cart.ClearCart();
                 UpdateCartDisplay();
                 MessageBox.Show("Худалдаа амжилттай хийгдлээ!", "Мэдээлэл",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void btnBaraa_Click(object? sender, EventArgs e)
+        /// <summary>
+        /// Baraanii managementiin tsonhiig neeh,zovhon admin bolon manager nevtersen yed neegdene.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBaraa_Click_1(object? sender, EventArgs e)
         {
             if (currentUser.Role != "Admin" && currentUser.Role != "Manager")
             {
@@ -320,11 +318,16 @@ namespace WinFormsApp
                 return;
             }
 
-            var baraaniiManagementForm = new BaraaniiManagementForm(posSystem);
+            var baraaniiManagementForm = new BaraaniiManagementForm(posSystem, this);
             baraaniiManagementForm.ShowDialog();
             LoadProducts();
         }
 
+        /// <summary>
+        /// Baraanii angilaliin udirdlagiin tsonhiig neeh.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAngilal_Click(object? sender, EventArgs e)
         {
             if (currentUser.Role != "Admin" && currentUser.Role != "Manager")
@@ -334,11 +337,16 @@ namespace WinFormsApp
                 return;
             }
 
-            var baraaniiAngilaliinManagementForm = new BaraaniiAngilaliinManagementForm(posSystem);
-            baraaniiAngilaliinManagementForm.ShowDialog();
-            LoadCategories();
+            var form = new BaraaniiAngilaliinManagementForm(posSystem);
+            form.ShowDialog();
         }
 
+
+        /// <summary>
+        /// POS systemiiin heregleenii tuslamj tailbar haruulna.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHelp_Click(object? sender, EventArgs e)
         {
             MessageBox.Show(
@@ -353,12 +361,8 @@ namespace WinFormsApp
             );
         }
 
+        //baraag oruulah tovch
         private void btnAddToCart_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnPay_Click_1(object sender, EventArgs e)
         {
 
         }
@@ -398,32 +402,33 @@ namespace WinFormsApp
 
         }
 
-        private void btnBaraa_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void lstCart_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// Songoson baraanii too hemjeeg 1 eer nemegduulne.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnIncreaseQty_Click(object sender, EventArgs e)
         {
             if (lstCart.SelectedItems.Count == 0) return;
 
             var selectedItem = lstCart.SelectedItems[0];
-            var saleItem = selectedItem.Tag as SaleItem;
+            var saleItem = selectedItem.Tag as ClassLibrary.Models.SaleItem;
 
             if (saleItem != null)
             {
-                saleItem.Quantity++;
+                cart.AddItem(saleItem.Product, 1); // Add one more of the existing product
                 UpdateCartDisplay();
 
                 // дахин сонгох
                 foreach (ListViewItem item in lstCart.Items)
                 {
-                    if (item.Tag == saleItem)
+                    if (item.Tag == saleItem) // Find the updated item in the list view
                     {
                         item.Selected = true;
                         break;
@@ -431,38 +436,57 @@ namespace WinFormsApp
                 }
             }
         }
+
+        /// <summary>
+        /// Songoson baraanii too hemjeeg negeer buruulna.Herbee 1 baival ustgana.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDecreaseQty_Click(object sender, EventArgs e)
         {
             if (lstCart.SelectedItems.Count == 0) return;
 
             var selectedItem = lstCart.SelectedItems[0];
-            var saleItem = selectedItem.Tag as SaleItem;
+            var saleItem = selectedItem.Tag as ClassLibrary.Models.SaleItem;
 
             if (saleItem != null)
             {
                 if (saleItem.Quantity > 1)
                 {
-                    saleItem.Quantity--;
+                    cart.UpdateItemQuantity(saleItem.Product.Id, saleItem.Quantity - 1); // Decrease quantity by one
                 }
                 else
                 {
-                    currentSaleItems.Remove(saleItem);
+                    cart.RemoveItem(saleItem.Product.Id); // Remove the item if quantity is 1
                 }
                 UpdateCartDisplay();
 
-                // дахин сонгох
-                foreach (ListViewItem item in lstCart.Items)
+                // Optionally re-select an item after decreasing or removing
+                if (cart.Items.Any())
                 {
-                    if (item.Tag == saleItem)
-                    {
-                        item.Selected = true;
-                        break;
-                    }
+                    // Re-select the item if it still exists, or the last item if removed.
+                    var itemToSelect = lstCart.Items.Cast<ListViewItem>().FirstOrDefault(item => (item.Tag as ClassLibrary.Models.SaleItem)?.Product.Id == saleItem.Product.Id) ?? lstCart.Items.Cast<ListViewItem>().LastOrDefault();
+                    if (itemToSelect != null) itemToSelect.Selected = true;
                 }
             }
         }
 
-        
+        private void lstProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void txtBarcode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+       
+
+        private void lstProducts_Paint_1(object sender, PaintEventArgs e)
+        {
+            
+        }
     }
 }

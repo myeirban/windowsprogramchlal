@@ -3,14 +3,14 @@
     partial class MainPosForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// shaardlagatai dizainer huvsagch.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Ashiglaj bui buh nootsiig tseverle.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">udirdaj baigaa nootsiig zahiran zartsuulah shaardlagatai bol unen.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -32,7 +32,6 @@
             btnClose = new Button();
             btnAddToCart = new Button();
             lstCategories = new Panel();
-            lstProducts = new Panel();
             txtBarcode = new TextBox();
             label1 = new Label();
             btnHelp = new Button();
@@ -47,10 +46,10 @@
             lblTotalPriceText = new Label();
             lblTotalItemText = new Label();
             btnAngilal = new Button();
-            label7 = new Label();
             label8 = new Label();
             lblNiitTolbor = new Label();
             btnBack = new Button();
+            lstProducts = new Panel();
             SuspendLayout();
             // 
             // btnLogout
@@ -63,7 +62,6 @@
             btnLogout.TabIndex = 0;
             btnLogout.Text = "LOG OUT";
             btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
             // 
             // btnClose
             // 
@@ -87,23 +85,16 @@
             btnAddToCart.TabIndex = 3;
             btnAddToCart.Text = "Baraag Oruulah";
             btnAddToCart.UseVisualStyleBackColor = false;
-            btnAddToCart.Click += btnAddToCart_Click_1;
+            btnAddToCart.Click += btnAddToCart_Click;
             // 
             // lstCategories
             // 
+            lstCategories.AutoScroll = true;
             lstCategories.BackColor = Color.FromArgb(95, 126, 146);
             lstCategories.Location = new Point(658, 69);
             lstCategories.Name = "lstCategories";
             lstCategories.Size = new Size(246, 482);
             lstCategories.TabIndex = 2;
-            // 
-            // lstProducts
-            // 
-            lstProducts.BackColor = Color.White;
-            lstProducts.Location = new Point(925, 69);
-            lstProducts.Name = "lstProducts";
-            lstProducts.Size = new Size(461, 482);
-            lstProducts.TabIndex = 0;
             // 
             // txtBarcode
             // 
@@ -112,6 +103,7 @@
             txtBarcode.Name = "txtBarcode";
             txtBarcode.Size = new Size(198, 46);
             txtBarcode.TabIndex = 7;
+            txtBarcode.TextChanged += txtBarcode_TextChanged;
             // 
             // label1
             // 
@@ -127,7 +119,7 @@
             // 
             btnHelp.BackColor = Color.Red;
             btnHelp.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnHelp.Location = new Point(16, 603);
+            btnHelp.Location = new Point(12, 603);
             btnHelp.Name = "btnHelp";
             btnHelp.Size = new Size(83, 43);
             btnHelp.TabIndex = 9;
@@ -180,13 +172,13 @@
             // 
             btnPay.BackColor = Color.FromArgb(210, 176, 38);
             btnPay.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnPay.Location = new Point(105, 530);
+            btnPay.Location = new Point(262, 572);
             btnPay.Name = "btnPay";
             btnPay.Size = new Size(133, 43);
             btnPay.TabIndex = 15;
             btnPay.Text = "PAY";
             btnPay.UseVisualStyleBackColor = false;
-            btnPay.Click += btnPay_Click_1;
+            btnPay.Click += btnPay_Click;
             // 
             // lblUsername
             // 
@@ -202,7 +194,7 @@
             // 
             btnIncreaseQty.BackColor = Color.Red;
             btnIncreaseQty.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnIncreaseQty.Location = new Point(315, 107);
+            btnIncreaseQty.Location = new Point(321, 30);
             btnIncreaseQty.Name = "btnIncreaseQty";
             btnIncreaseQty.Size = new Size(59, 43);
             btnIncreaseQty.TabIndex = 17;
@@ -214,7 +206,7 @@
             // 
             btnDecreaseQty.BackColor = Color.Red;
             btnDecreaseQty.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnDecreaseQty.Location = new Point(380, 107);
+            btnDecreaseQty.Location = new Point(386, 30);
             btnDecreaseQty.Name = "btnDecreaseQty";
             btnDecreaseQty.Size = new Size(59, 43);
             btnDecreaseQty.TabIndex = 18;
@@ -233,7 +225,7 @@
             // lblTotalItemText
             // 
             lblTotalItemText.AutoSize = true;
-            lblTotalItemText.Location = new Point(162, 458);
+            lblTotalItemText.Location = new Point(162, 572);
             lblTotalItemText.Name = "lblTotalItemText";
             lblTotalItemText.Size = new Size(45, 20);
             lblTotalItemText.TabIndex = 20;
@@ -252,20 +244,10 @@
             btnAngilal.UseVisualStyleBackColor = false;
             btnAngilal.Click += btnAngilal_Click;
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(12, 458);
-            label7.Name = "label7";
-            label7.Size = new Size(63, 20);
-            label7.TabIndex = 22;
-            label7.Text = "Niit Une";
-            label7.Click += label7_Click;
-            // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(12, 489);
+            label8.Location = new Point(17, 572);
             label8.Name = "label8";
             label8.Size = new Size(120, 20);
             label8.TabIndex = 23;
@@ -275,7 +257,7 @@
             // lblNiitTolbor
             // 
             lblNiitTolbor.AutoSize = true;
-            lblNiitTolbor.Location = new Point(123, 576);
+            lblNiitTolbor.Location = new Point(283, 618);
             lblNiitTolbor.Name = "lblNiitTolbor";
             lblNiitTolbor.Size = new Size(80, 20);
             lblNiitTolbor.TabIndex = 24;
@@ -293,15 +275,26 @@
             btnBack.Text = "X";
             btnBack.UseVisualStyleBackColor = false;
             // 
+            // lstProducts
+            // 
+            lstProducts.AutoScroll = true;
+            lstProducts.BackColor = Color.White;
+            lstProducts.Location = new Point(925, 72);
+            lstProducts.Name = "lstProducts";
+            lstProducts.Size = new Size(461, 479);
+            lstProducts.TabIndex = 26;
+            lstProducts.Paint += lstProducts_Paint_1;
+            // 
             // MainPosForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(194, 158, 190);
             ClientSize = new Size(1463, 653);
+            Controls.Add(lstCart);
+            Controls.Add(lstProducts);
             Controls.Add(lblNiitTolbor);
             Controls.Add(label8);
-            Controls.Add(label7);
             Controls.Add(btnAngilal);
             Controls.Add(btnLogout);
             Controls.Add(lblTotalItemText);
@@ -312,12 +305,10 @@
             Controls.Add(btnPay);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(lstCart);
             Controls.Add(btnBaraa);
             Controls.Add(btnHelp);
             Controls.Add(label1);
             Controls.Add(txtBarcode);
-            Controls.Add(lstProducts);
             Controls.Add(btnClose);
             Controls.Add(lstCategories);
             Controls.Add(btnAddToCart);
@@ -330,13 +321,18 @@
             PerformLayout();
         }
 
+        private void lstProducts_Paint(object sender, PaintEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         #endregion
 
         private Button btnLogout;
         private Button btnClose;
         private Panel lstCategories;
         private Button btnAddToCart;
-        private Panel lstProducts;
         private TextBox txtBarcode;
         private Label label1;
         private Button btnHelp;
@@ -351,9 +347,9 @@
         private Label lblTotalPriceText;
         private Label lblTotalItemText;
         private Button btnAngilal;
-        private Label label7;
         private Label label8;
         private Label lblNiitTolbor;
         private Button btnBack;
+        private Panel lstProducts;
     }
 }

@@ -9,15 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary.Models;
 using ClassLibrary;
+using ClassLibrary.Repository;
 
 namespace WinFormsApp
 {
+    /// <summary>
+    /// Baraanii medeelliig zasah zoriulalttai form.
+    /// Ner ,une ,angilal,barkod zereg medeelliig shinechleh bolomjtoi.
+    /// </summary>
     public partial class EditForm : Form
     {
         private POSSystem posSystem;
-        private Product product;
+        private ClassLibrary.Models.Product product;
 
-        public EditForm(POSSystem posSystem, Product product)
+        /// <summary>
+        /// Edit form iin shine huulbariig uusgene.
+        /// </summary>
+        /// <param name="posSystem"></param>
+        /// <param name="product"></param>
+        public EditForm(POSSystem posSystem, ClassLibrary.Models.Product product)
         {
             InitializeComponent();
             this.posSystem = posSystem;
@@ -26,15 +36,22 @@ namespace WinFormsApp
             LoadProductData();
         }
 
+        
+        /// <summary>
+        /// POS systemees buh angilaliig achaalj ComboBox-d haruulan.
+        /// </summary>
         private void LoadCategories()
         {
             cmbEditCategory.Items.Clear();
-            foreach (var category in posSystem.GetCategories())
+            foreach (var category in posSystem.CategoryRepository.GetCategories())
             {
                 cmbEditCategory.Items.Add(category.Name);
             }
         }
 
+        /// <summary>
+        /// zasah gej bui baraanii medeelliig talbaruud deer haruulna.
+        /// </summary>
         private void LoadProductData()
         {
             if (product == null) return;
@@ -43,102 +60,116 @@ namespace WinFormsApp
             txtEditPrice.Text = product.Price.ToString();
             txtEditCode.Text = product.Barcode;
 
-            var category = posSystem.GetCategories().FirstOrDefault(c => c.Id == product.CategoryId);
+            var category = posSystem.CategoryRepository.GetCategories().FirstOrDefault(c => c.Id == product.CategoryId);
             if (category != null)
             {
                 cmbEditCategory.SelectedItem = category.Name;
             }
         }
 
-
+        /// <summary>
+        /// Hadgalah tovch daragdahad baraanii medeelliig shinechlene.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSaveEdit_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtEditName.Text) ||
-                string.IsNullOrEmpty(txtEditPrice.Text) ||
-                string.IsNullOrEmpty(txtEditCode.Text) ||
-                cmbEditCategory.SelectedIndex == -1)
+            try
             {
-                MessageBox.Show("Бүх талбарыг бөглөнө үү!", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (string.IsNullOrEmpty(txtEditName.Text) ||
+                    string.IsNullOrEmpty(txtEditPrice.Text) ||
+                    string.IsNullOrEmpty(txtEditCode.Text) ||
+                    cmbEditCategory.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Бүх талбарыг бөглөнө үү!", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            if (!decimal.TryParse(txtEditPrice.Text, out decimal price) || price <= 0)
+                if (!decimal.TryParse(txtEditPrice.Text, out decimal price) || price <= 0)
+                {
+                    MessageBox.Show("Үнийг зөв оруулна уу!", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Stock field is missing in designer, so we skip it for now
+                int stock = 0;
+
+                string categoryName = cmbEditCategory.SelectedItem?.ToString() ?? "";
+                var category = posSystem.CategoryRepository.GetCategories().FirstOrDefault(c => c.Name == categoryName);
+                if (category == null)
+                {
+                    MessageBox.Show("Ангилал олдсонгүй!", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                posSystem.ProductRepository.UpdateProduct(
+    product.Id,
+    txtEditName.Text,
+    price,
+    stock,
+    category.Id,
+    txtEditCode.Text
+);
+
+
+                MessageBox.Show("Барааны мэдээлэл амжилттай шинэчлэгдлээ!", "Мэдээлэл", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Үнийг зөв оруулна уу!", "Анхаар", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                MessageBox.Show($"Алдаа гарлаа: {ex.Message}", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Stock field is missing in designer, so we skip it for now
-            int stock = 0;
-
-            string categoryName = cmbEditCategory.SelectedItem?.ToString() ?? "";
-            var category = posSystem.GetCategories().FirstOrDefault(c => c.Name == categoryName);
-            if (category == null)
-            {
-                MessageBox.Show("Ангилал олдсонгүй!", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            posSystem.UpdateProduct(
-                product.Id,
-                txtEditName.Text,
-                price,
-                stock,
-                category.Id,
-                txtEditCode.Text
-            );
-
-            MessageBox.Show("Барааны мэдээлэл амжилттай шинэчлэгдлээ!", "Мэдээлэл", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
 
+        /// <summary>
+        /// Bolih tovch darsan yed form -g haana.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelEdit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        // textBox1-д текст өөрчлөгдөхөд дуудагдах эвент
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            // Энд та хүссэн кодаа бичиж болно
-            // Жишээ нь: MessageBox харуулах
-            // MessageBox.Show("Item Code changed!");
-        }
-
-        private void picEditImage_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Neriin talbar oorclogdoh yed(Validatsi hiihed ashiglana.)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtEditName_TextChanged(object sender, EventArgs e)
         {
-
+            // Validate name if needed
         }
 
+        /// <summary>
+        /// Une oorclogdoh yed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtEditPrice_TextChanged(object sender, EventArgs e)
         {
-
+            // Validate price if needed
         }
-
+        /// <summary>
+        /// Angilal songogdson yed heregjih logic
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbEditCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Handle category change if needed
         }
 
+        /// <summary>
+        /// Zurag shinecleh tovch darsan yed heregjih event,odoogoor asiglaagui
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpdatePhoto_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnSaveEdit_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancelEdit_Click_1(object sender, EventArgs e)
-        {
-
+            // Handle photo update if needed
         }
     }
 }

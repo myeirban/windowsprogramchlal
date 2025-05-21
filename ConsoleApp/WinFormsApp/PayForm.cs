@@ -9,33 +9,48 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary;
 using ClassLibrary.Models;
-
+using System.Drawing.Printing;
+using ClassLibrary.Service;
 namespace WinFormsApp
 {
     public partial class PayForm : Form
     {
+        /// <summary>
+        /// POS sistemii tolbor toloh form.
+        /// Kasschin baraag borluulj,tolbor huleen avch ,barimt hevledeg
+        /// </summary>
         private POSSystem posSystem;
-        private List<SaleItem> saleItems;
+        private List<ClassLibrary.Models.SaleItem> saleItems;
         private string cashierName;
         private decimal totalAmount;
         private ComboBox cmbPaymentMethod;
+        private PrintingService printingService;
+       
 
         public string PaymentMethod => cmbPaymentMethod.SelectedItem?.ToString() ?? "Cash";
-
-        public PayForm(POSSystem posSystem, List<SaleItem> saleItems, string cashierName)
+        /// <summary>
+        /// Pay formiig uusgej,niit tolbor bolon tolboriin torliig tohiruulna.
+        /// </summary>
+        /// <param name="posSystem">POS systemiin undsen logic</param>
+        /// <param name="saleItems">Sgsand baigaa baraanuudiin jagsaalt</param>
+        /// <param name="cashierName">Kasschin hereglegchiin ner</param>
+        /// <param name="printingService">barim hevleh uilchilgee</param>
+        public PayForm(POSSystem posSystem, List<ClassLibrary.Models.SaleItem> saleItems, string cashierName, PrintingService printingService)
         {
             InitializeComponent();
+
             this.posSystem = posSystem;
             this.saleItems = saleItems;
             this.cashierName = cashierName;
             totalAmount = saleItems.Sum(item => item.Total);
             lblTotalAmountText.Text = totalAmount.ToString("C");
+            this.printingService = printingService;
 
-            // Add payment method selection
+            // Динамикаар ComboBox үүсгэх
             int totalAmountLabelY = lblTotalAmountText.Location.Y;
             int totalAmountLabelRight = lblTotalAmountText.Location.X + lblTotalAmountText.Width;
-            int paymentMethodX = totalAmountLabelRight + 40; // 40px space to the right
-            int paymentMethodY = lblTotalAmountText.Location.Y - 3; // align with label
+            int paymentMethodX = totalAmountLabelRight + 40;
+            int paymentMethodY = lblTotalAmountText.Location.Y - 3;
 
             cmbPaymentMethod = new ComboBox
             {
@@ -56,11 +71,11 @@ namespace WinFormsApp
             this.Controls.Add(lblPaymentMethod);
         }
 
-        public PayForm()
-        {
-            InitializeComponent();
-        }
-
+        /// <summary>
+        /// Hereglegch toloh dun oruulsan yed tootsolj,hariult haruulna.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (decimal.TryParse(txtPaidAmount.Text, out decimal paid))
@@ -89,6 +104,11 @@ namespace WinFormsApp
 
         }
 
+        /// <summary>
+        /// Toloh tovch darsan yed baraag borluulj,barimt hevlene.
+        /// </summary>
+        /// <param name="sender">tovch </param>
+        /// <param name="e">event argument</param>
         private void btnPayConfirm_Click(object sender, EventArgs e)
         {
             if (!decimal.TryParse(txtPaidAmount.Text, out decimal paidAmount))
@@ -105,21 +125,43 @@ namespace WinFormsApp
 
             try
             {
+                // Process the sale first
                 posSystem.ProcessSale(saleItems, cashierName, PaymentMethod);
+
+                // Now generate and show the print dialog
+                PrintDocument pd = printingService.CreateReceiptPrintDocument(saleItems, cashierName, totalAmount, PaymentMethod);
+                PrintDialog printDialog = new PrintDialog();
+                printDialog.Document = pd;
+
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pd.Print();
+                }
+
+                // After successful processing and printing (or user cancels printing), close the form
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Алдаа гарлаа: {ex.Message}", "Алдаа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.Abort; // Indicate failure
             }
         }
-
+        /// <summary>
+        /// barimt hevlej ogoh tovch 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPrintBill_Click(object sender, EventArgs e)
         {
 
         }
-
+        /// <summary>
+        /// bolih tovch darsan yed form-g haaj,dialog result -cancel bolgoj butsaana.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelPay_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

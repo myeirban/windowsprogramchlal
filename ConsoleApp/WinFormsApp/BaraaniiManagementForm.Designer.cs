@@ -89,9 +89,9 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.BackColor = Color.FromArgb(136, 165, 109);
             label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(320, 2);
+            label2.Location = new Point(556, 2);
             label2.Name = "label2";
-            label2.Size = new Size(246, 50);
+            label2.Size = new Size(272, 50);
             label2.TabIndex = 14;
             label2.Text = "Baraanii jagsaalt";
             // 
@@ -112,7 +112,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(84, 126, 190);
-            ClientSize = new Size(1096, 450);
+            ClientSize = new Size(1122, 450);
             Controls.Add(btnBack);
             Controls.Add(label2);
             Controls.Add(btnDeleteProduct);
@@ -121,6 +121,7 @@
             Controls.Add(lstProducts);
             Name = "BaraaniiManagementForm";
             Text = "Baraa";
+            Load += BaraaniiManagementForm_Load;
             ((System.ComponentModel.ISupportInitialize)lstProducts).EndInit();
             ResumeLayout(false);
         }

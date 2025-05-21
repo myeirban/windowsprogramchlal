@@ -1,16 +1,18 @@
 ﻿namespace WinFormsApp
-{
+{/// <summary>
+/// POS systemiin hereglegch nevtreh formiin UI bureldehuunuudiig todorhoildog.
+/// </summary>
     partial class LoginForm
     {
         /// <summary>
-        ///  Required designer variable.
+        ///  Form d zaaval baih dizainer bureldehuunuud.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        ///  Clean up any resources being used.
+        ///  Ashiglagdaj bui buh resursiig tseverlene.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true bol managed nootsiig ustgana.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

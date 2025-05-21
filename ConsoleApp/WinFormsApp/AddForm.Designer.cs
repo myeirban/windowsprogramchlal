@@ -40,6 +40,8 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            label5 = new Label();
+            txtItemStock = new TextBox();
             ((System.ComponentModel.ISupportInitialize)picItemImage).BeginInit();
             SuspendLayout();
             // 
@@ -153,6 +155,23 @@
             label1.Text = "ITEM CODE";
             label1.Click += label1_Click;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(362, 248);
+            label5.Name = "label5";
+            label5.Size = new Size(90, 20);
+            label5.TabIndex = 24;
+            label5.Text = "ITEM STOCK";
+            // 
+            // txtItemStock
+            // 
+            txtItemStock.Location = new Point(497, 245);
+            txtItemStock.Name = "txtItemStock";
+            txtItemStock.Size = new Size(151, 27);
+            txtItemStock.TabIndex = 25;
+            txtItemStock.TextChanged += txtItemStock_TextChanged;
+            // 
             // AddForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -170,6 +189,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(label5);
+            Controls.Add(txtItemStock);
             Name = "AddForm";
             Text = "AddForm";
             ((System.ComponentModel.ISupportInitialize)picItemImage).EndInit();
@@ -191,5 +212,7 @@
         private Label label3;
         private Label label2;
         private Label label1;
+        private Label label5;
+        private TextBox txtItemStock;
     }
 }

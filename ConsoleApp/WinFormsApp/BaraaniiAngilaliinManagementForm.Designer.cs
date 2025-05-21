@@ -98,9 +98,9 @@
             // 
             btnBack.BackColor = Color.Red;
             btnBack.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBack.Location = new Point(780, 12);
+            btnBack.Location = new Point(786, 12);
             btnBack.Name = "btnBack";
-            btnBack.Size = new Size(181, 43);
+            btnBack.Size = new Size(154, 43);
             btnBack.TabIndex = 22;
             btnBack.Text = "Butsah";
             btnBack.UseVisualStyleBackColor = false;
