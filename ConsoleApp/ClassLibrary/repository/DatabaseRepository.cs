@@ -8,7 +8,7 @@ namespace ClassLibrary.Repository
     /// Ogogdliin san uusgeh,husnegtuud beldeh,SQLite holbolt neeh uurgtei klass.
     /// </summary>
     public class DatabaseRepository
-    {
+    {   
         private readonly string dbPath;
         private readonly string connectionString;
 
@@ -102,17 +102,15 @@ namespace ClassLibrary.Repository
                         );";
                     command.ExecuteNonQuery();
 
-                    // Default users
-                    if (isNewDatabase)
-                    {
-                        command.CommandText = @"
-                            INSERT OR IGNORE INTO Users (Username, Password, Role) VALUES 
-                            ('admin', 'admin', 'Admin'),
-                            ('manager', '0000', 'Manager'),
-                            ('cashier1', '0000', 'Cashier'),
-                            ('cashier2', '0000', 'Cashier');";
-                        command.ExecuteNonQuery();
-                    }
+                    // Always add default users
+                    command.CommandText = @"
+                        DELETE FROM Users;
+                        INSERT INTO Users (Username, Password, Role) VALUES 
+                        ('admin', 'admin', 'Admin'),
+                        ('manager', '0000', 'Manager'),
+                        ('cashier1', '0000', 'Cashier'),
+                        ('cashier2', '0000', 'Cashier');";
+                    command.ExecuteNonQuery();
                 }
             }
         }

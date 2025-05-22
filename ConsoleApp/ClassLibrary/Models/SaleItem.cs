@@ -19,5 +19,8 @@ namespace ClassLibrary.Models
         /// niit une
         /// </summary>
         public decimal Total => Product.Price * Quantity;
+
+        public int ProductId { get; set; }
+        public decimal Price { get; set; }
     }
 } 

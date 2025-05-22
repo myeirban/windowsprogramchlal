@@ -16,7 +16,7 @@ namespace WinFormsApp
         /// POS systemiin ogogdliin sangiin bairshliig zaana.
         /// </summary>
         private POSSystem posSystem;
-        private const string DB_PATH = @"C:\Users\22B1NUM7158\Documents\school\windowsprogramchlal\ConsoleApp\miniidatabase";
+        private const string DB_PATH = @"C:\Users\22B1NUM7158\Documents\school\windowsprogramchlal\windowsshuu\ConsoleApp\miniidatabase.db";
 
         /// <summary>
         /// Login Form-iin shine huulbariig uusgeh baiguulagch

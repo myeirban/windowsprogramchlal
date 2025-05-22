@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using ClassLibrary;
 using ClassLibrary.Models;
 using ClassLibrary.Repository;
 using ClassLibrary.Service;
 
 
-namespace ClassLibrary
+namespace ClassLibrary//POS system klass Class library namespace dotor bairlaj baigaa
 {
     /// <summary>
     /// POS systemiin tov udirdlagin klass.
@@ -13,15 +11,15 @@ namespace ClassLibrary
     /// </summary>
     public class POSSystem
     {
-        private readonly DatabaseRepository databaseRepository;
-        private readonly UserRepository userRepository;
-        private readonly AuthService authService;
-        private readonly ProductRepository productRepository;
-        private readonly CategoryRepository categoryRepository;
-        private readonly OrderService orderService;
-        private readonly ProductService productService;
-        private readonly PrintingService printingService;
-        
+        private const string DB_PATH = @"C:\Users\22B1NUM7158\Documents\school\windowsprogramchlal\windowsshuu\ConsoleApp\miniidatabase.db";
+        private readonly DatabaseRepository databaseRepository;//SQLite ogogdliin sang udirdah repo 
+        private readonly UserRepository userRepository;//hereglegchiin medeeleltei ajillah repo
+        private readonly ProductRepository productRepository;//baraanii medeelliig urirdah repo
+        private readonly CategoryRepository categoryRepository;//angilaliin medeelliig udirdah repo
+        private readonly OrderService orderService;//hudaldan avaltiin logic
+        private readonly ProductService productService;//baraanii nemelt logic
+        private readonly PrintingService printingService;//barimt hevleh uilcilgee
+
 
         /// <summary>
         /// hereglegchiin repo
@@ -58,18 +56,30 @@ namespace ClassLibrary
         /// <summary>
         /// POS sistemiig initsializ hiij buh hamaaral buhii achaaldag
         /// </summary>
+        public POSSystem()
+        {
+            databaseRepository = new DatabaseRepository(DB_PATH);
+            userRepository = new UserRepository(databaseRepository.GetConnection());
+            productRepository = new ProductRepository(databaseRepository.GetConnection());
+            categoryRepository = new CategoryRepository(databaseRepository.GetConnection());
+            orderService = new OrderService(databaseRepository);
+            productService = new ProductService(productRepository);
+            printingService = new PrintingService();
+        }
+
+        /// <summary>
+        /// POS sistemiig initsializ hiij buh hamaaral buhii achaaldag
+        /// </summary>
         /// <param name="dbPath">DB iin zam</param>
         public POSSystem(string dbPath)
         {
             databaseRepository = new DatabaseRepository(dbPath);
             userRepository = new UserRepository(databaseRepository.GetConnection());
-            authService = new AuthService(); // Assuming AuthService doesn't need a connection initially
             productRepository = new ProductRepository(databaseRepository.GetConnection());
             categoryRepository = new CategoryRepository(databaseRepository.GetConnection());
-            orderService = new OrderService(databaseRepository); // OrderService needs DatabaseRepository
+            orderService = new OrderService(databaseRepository);
             productService = new ProductService(productRepository);
             printingService = new PrintingService();
-            // Initialize other repositories and services
         }
 
         /// <summary>
@@ -80,8 +90,7 @@ namespace ClassLibrary
         /// <returns>amjilttai bol true,esreg tohioldold false</returns>
         public bool Login(string username, string password)
         {
-            // Delegate login logic to AuthService or UserRepository
-            // For now, directly using UserRepository as AuthService is empty
+            
             var user = userRepository.GetUser(username);
             return user != null && user.Password == password;
         }
@@ -103,10 +112,11 @@ namespace ClassLibrary
         /// <param name="price"></param>
         /// <param name="stock"></param>
         /// <param name="categoryId"></param>
-        public void AddProduct(string name, decimal price, int stock, int categoryId)
+        /// <param name="barcode"></param>
+        public void AddProduct(string name, decimal price, int stock, int categoryId, string barcode)
         {
             // This should call ProductRepository or a ProductService
-            productRepository.AddProduct(new Product { Name = name, Price = price, Stock = stock, CategoryId = categoryId});
+            productRepository.AddProduct(new Product { Name = name, Price = price, Stock = stock, CategoryId = categoryId, Barcode = barcode });
         }
 
         /// <summary>
@@ -222,4 +232,4 @@ namespace ClassLibrary
             orderService.ProcessSale(saleItems, cashierName, paymentMethod);
         }
     }
-} 
+}

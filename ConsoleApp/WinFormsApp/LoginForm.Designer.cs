@@ -51,7 +51,7 @@
             panel1.Controls.Add(btnExit);
             panel1.Controls.Add(pictureBox1);
             panel1.ForeColor = Color.Coral;
-            panel1.Location = new Point(364, 1);
+            panel1.Location = new Point(452, 1);
             panel1.Name = "panel1";
             panel1.Size = new Size(435, 503);
             panel1.TabIndex = 2;
@@ -64,7 +64,7 @@
             btnExit.FlatStyle = FlatStyle.Flat;
             btnExit.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnExit.ForeColor = Color.Black;
-            btnExit.Location = new Point(360, 11);
+            btnExit.Location = new Point(308, 35);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(62, 43);
             btnExit.TabIndex = 11;
@@ -75,9 +75,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.OIP__1_;
-            pictureBox1.Location = new Point(-65, 141);
+            pictureBox1.Location = new Point(25, 138);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(197, 236);
+            pictureBox1.Size = new Size(189, 236);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -86,11 +86,11 @@
             label1.AutoSize = true;
             label1.Font = new Font("Times New Roman", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Blue;
-            label1.Location = new Point(-2, 26);
+            label1.Location = new Point(-2, 36);
             label1.Name = "label1";
-            label1.Size = new Size(473, 68);
+            label1.Size = new Size(438, 68);
             label1.TabIndex = 3;
-            label1.Text = "Minii Anhni POS";
+            label1.Text = "Delguuriin POS\r\n";
             // 
             // label2
             // 
@@ -161,7 +161,7 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(83, 415);
+            btnLogin.Location = new Point(83, 426);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(275, 50);
             btnLogin.TabIndex = 10;
@@ -174,7 +174,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(798, 503);
+            ClientSize = new Size(886, 503);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUserName);

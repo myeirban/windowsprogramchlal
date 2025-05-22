@@ -1,7 +1,5 @@
 ﻿using ClassLibrary.Repository;
 using ClassLibrary.Models;
-using System;
-using System.IO;
 using System.Drawing;
 
 namespace ClassLibrary.Service

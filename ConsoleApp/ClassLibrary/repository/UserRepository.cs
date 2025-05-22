@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Data.SQLite;
 using ClassLibrary.Models;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
 
 namespace ClassLibrary.Repository
 {
