@@ -1,0 +1,11 @@
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.AssemblyInfoInputs.cache
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.AssemblyInfo.cs
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.csproj.CoreCompileInputs.cache
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\bin\Debug\net8.0\FlightCheckInSystemCore.deps.json
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\bin\Debug\net8.0\FlightCheckInSystemCore.dll
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\bin\Debug\net8.0\FlightCheckInSystemCore.pdb
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.dll
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\refint\FlightCheckInSystemCore.dll
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\FlightCheckInSystemCore.pdb
+C:\Users\22B1NUM7158\Documents\FLIGHTSYSTEM\flightsystem11\FlightCheckInSystemCore\obj\Debug\net8.0\ref\FlightCheckInSystemCore.dll

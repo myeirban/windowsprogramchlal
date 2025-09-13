@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlightCheckInSystem.Business\FlightCheckInSystem.Business.csproj" />
+    <ProjectReference Include="..\FlightCheckInSystem.Data\FlightCheckInSystem.Data.csproj" />
+    <ProjectReference Include="..\FlightCheckInSystem.Server\FlightCheckInSystem.Server.csproj" />
+    <ProjectReference Include="..\FlightCheckInSystemCore\FlightCheckInSystemCore.csproj" />
+    <ProjectReference Include="..\FlightCheckInSystemWeb\FlightCheckInSystemWeb.csproj" />
+  </ItemGroup>
+
+</Project>

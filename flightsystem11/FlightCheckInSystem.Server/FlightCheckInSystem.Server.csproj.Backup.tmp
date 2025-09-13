@@ -1,0 +1,111 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net8.0\FlightCheckInSystem.Server.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net8.0\FlightCheckInSystem.Server.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cs" />
+    <Compile Include="obj\Release\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Release\net8.0\FlightCheckInSystem.Server.AssemblyInfo.cs" />
+    <Compile Include="obj\Release\net8.0\FlightCheckInSystem.Server.GlobalUsings.g.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\appsettings.Development.json" />
+    <Content Include="bin\Debug\net8.0\appsettings.json" />
+    <Content Include="bin\Debug\net8.0\FlightCheckInSystem.Server.deps.json" />
+    <Content Include="bin\Debug\net8.0\FlightCheckInSystem.Server.runtimeconfig.json" />
+    <Content Include="bin\Debug\net8.0\FlightCheckInSystem.Server.staticwebassets.endpoints.json" />
+    <Content Include="obj\Debug\net8.0\ApiEndpoints.json" />
+    <Content Include="obj\Debug\net8.0\EndpointInfo\FlightCheckInSystem.Server.json" />
+    <Content Include="obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net8.0\rjsmcshtml.dswa.cache.json" />
+    <Content Include="obj\Debug\net8.0\rjsmrazor.dswa.cache.json" />
+    <Content Include="obj\Debug\net8.0\rpswa.dswa.cache.json" />
+    <Content Include="obj\Debug\net8.0\staticwebassets.build.endpoints.json" />
+    <Content Include="obj\Debug\net8.0\staticwebassets.build.json" />
+    <Content Include="obj\Debug\net8.0\staticwebassets.references.upToDateCheck.txt" />
+    <Content Include="obj\Debug\net8.0\staticwebassets.removed.txt" />
+    <Content Include="obj\FlightCheckInSystem.Server.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Business.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Business.pdb" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Core.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Core.pdb" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Data.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Data.pdb" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Server.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Server.exe" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Server.pdb" />
+    <None Include="bin\Debug\net8.0\Microsoft.Data.Sqlite.dll" />
+    <None Include="bin\Debug\net8.0\Microsoft.OpenApi.dll" />
+    <None Include="bin\Debug\net8.0\Newtonsoft.Json.dll" />
+    <None Include="bin\Debug\net8.0\runtimes\browser-wasm\nativeassets\net8.0\e_sqlite3.a" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-arm64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-armel\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-arm\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-mips64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-musl-arm\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-musl-riscv64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-musl-s390x\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-musl-x64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-ppc64le\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-riscv64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-s390x\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-x64\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\linux-x86\native\libe_sqlite3.so" />
+    <None Include="bin\Debug\net8.0\runtimes\maccatalyst-arm64\native\libe_sqlite3.dylib" />
+    <None Include="bin\Debug\net8.0\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib" />
+    <None Include="bin\Debug\net8.0\runtimes\osx-arm64\native\libe_sqlite3.dylib" />
+    <None Include="bin\Debug\net8.0\runtimes\osx-x64\native\libe_sqlite3.dylib" />
+    <None Include="bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll" />
+    <None Include="bin\Debug\net8.0\runtimes\win-arm\native\e_sqlite3.dll" />
+    <None Include="bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll" />
+    <None Include="bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll" />
+    <None Include="bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll" />
+    <None Include="bin\Debug\net8.0\SQLitePCLRaw.core.dll" />
+    <None Include="bin\Debug\net8.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll" />
+    <None Include="bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll" />
+    <None Include="FlightCheckInSystem.Server.csproj" />
+    <None Include="FlightCheckInSystem.Server.csproj.user" />
+    <None Include="obj\Debug\net8.0\apphost.exe" />
+    <None Include="obj\Debug\net8.0\EndpointInfo\FlightCheckInSystem.Server.OpenApiFiles.cache" />
+    <None Include="obj\Debug\net8.0\FlightCh.15CD00CA.Up2Date" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.assets.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.BuildWithSkipAnalyzers" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.dll" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.genruntimeconfig.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.MvcApplicationPartsAssemblyInfo.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Server.pdb" />
+    <None Include="obj\Debug\net8.0\refint\FlightCheckInSystem.Server.dll" />
+    <None Include="obj\Debug\net8.0\ref\FlightCheckInSystem.Server.dll" />
+    <None Include="obj\Debug\net8.0\staticwebassets\msbuild.build.FlightCheckInSystem.Server.props" />
+    <None Include="obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FlightCheckInSystem.Server.props" />
+    <None Include="obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FlightCheckInSystem.Server.props" />
+    <None Include="obj\FlightCheckInSystem.Server.csproj.nuget.g.props" />
+    <None Include="obj\FlightCheckInSystem.Server.csproj.nuget.g.targets" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Server.AssemblyInfoInputs.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Server.assets.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Server.csproj.AssemblyReference.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Server.GeneratedMSBuildEditorConfig.editorconfig" />
+  </ItemGroup>
+
+</Project>

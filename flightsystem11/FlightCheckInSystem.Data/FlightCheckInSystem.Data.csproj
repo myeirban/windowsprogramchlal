@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net8.0\FlightCheckInSystem.Data.deps.json" />
+    <Content Include="obj\Debug\net8.0-windows\FlightCheckInSystem.Data.designer.deps.json" />
+    <Content Include="obj\Debug\net8.0-windows\FlightCheckInSystem.Data.designer.runtimeconfig.json" />
+    <Content Include="obj\Debug\net8.0\FlightCheckInSystem.Data.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\FlightCheckInSystem.Data.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Core.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Core.pdb" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Data.dll" />
+    <None Include="bin\Debug\net8.0\FlightCheckInSystem.Data.pdb" />
+    <None Include="obj\Debug\net8.0-windows\FlightCheckInSystem.Data.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net8.0-windows\FlightCheckInSystem.Data.assets.cache" />
+    <None Include="obj\Debug\net8.0-windows\FlightCheckInSystem.Data.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net8.0\FlightCh.A3F3DBD6.Up2Date" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.assets.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.csproj.BuildWithSkipAnalyzers" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.dll" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net8.0\FlightCheckInSystem.Data.pdb" />
+    <None Include="obj\Debug\net8.0\refint\FlightCheckInSystem.Data.dll" />
+    <None Include="obj\Debug\net8.0\ref\FlightCheckInSystem.Data.dll" />
+    <None Include="obj\FlightCheckInSystem.Data.csproj.nuget.g.props" />
+    <None Include="obj\FlightCheckInSystem.Data.csproj.nuget.g.targets" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Data.AssemblyInfoInputs.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Data.assets.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Data.csproj.AssemblyReference.cache" />
+    <None Include="obj\Release\net8.0\FlightCheckInSystem.Data.GeneratedMSBuildEditorConfig.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="bin\Debug\net8.0-windows\" />
+    <Folder Include="obj\Debug\net8.0-windows\refint\" />
+    <Folder Include="obj\Debug\net8.0-windows\ref\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlightCheckInSystemCore\FlightCheckInSystemCore.csproj" />
+  </ItemGroup>
+
+</Project>

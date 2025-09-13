@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "FlightCheckInSystem.Server\\FlightCheckInSystem.Server.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "FlightCheckInSystemWeb\\FlightCheckInSystemWeb.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "WorkerUI\\WorkerUI.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
