@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\POS.Core.csproj" />
+    <ProjectReference Include="..\Models\POS.Models.csproj" />
+    <ProjectReference Include="..\Services\POS.Services.csproj" />
+  </ItemGroup>
+
+</Project> 
